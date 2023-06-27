@@ -20,14 +20,15 @@ The experimental Laravel project to build an API that used to do the operations 
 
 ## Implemented Features
 
-- __Data Request__
-- __CRUD operations__
-- __Nested Parameter__
-- __Resources__
-- __Form Validation__
-- Form Request
-- Authentication (Sanctum)
-- Authorization
-- Middleware
-- Testing
-- File Handling (Image)
+- [X] Data Request
+- [X] CRUD operations
+- [X] Nested Parameter
+- [X] Resources
+- [X] Form Validation
+- [] Form Request
+- [] API Token
+- [] Authentication (Sanctum)
+- [] Authorization
+- [] Middleware
+- [] Testing
+- [] File Handling (Image)

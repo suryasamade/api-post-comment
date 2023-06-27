@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
@@ -48,7 +50,7 @@ class CommentController extends Controller
         return new CommentResource(true, 'success', $comment);
     }
 
-    public function store(Request $request, $postId)
+    public function store(StoreCommentRequest $request, $postId)
     {
         $post = Post::find($postId);
 
@@ -58,7 +60,7 @@ class CommentController extends Controller
             ]);
         }
 
-        $request->request->add(['post_id' => intval($postId)]);
+        /* $request->request->add(['post_id' => intval($postId)]);
 
         $validator = Validator::make($request->all(), [
             'message' => 'required',
@@ -67,6 +69,10 @@ class CommentController extends Controller
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        } */
+
+        if ($request->fails()) {
+            return response()->json($request->errors(), 422);
         }
 
         $comment = Comment::create($request->all());
@@ -74,7 +80,7 @@ class CommentController extends Controller
         return new CommentResource(true, 'data stored', $comment);
     }
 
-    public function update(Request $request, $postId, $commentId)
+    public function update(UpdateCommentRequest $request, $postId, $commentId)
     {
         $post = Post::find($postId);
 
@@ -95,13 +101,17 @@ class CommentController extends Controller
 
         $request->request->add(['post_id' => intval($postId)]);
 
-        $validator = Validator::make($request->all(), [
+        /* $validator = Validator::make($request->all(), [
             'message' => 'required',
             'post_id' => 'required'
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        } */
+
+        if ($request->fails()) {
+            return response()->json($request->errors(), 422);
         }
 
         $comment->message = $request->message;

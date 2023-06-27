@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -36,15 +38,19 @@ class PostController extends Controller
         return new PostResource(true, 'success', $post);
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $validator = Validator::make($request->all(), [
+        /* $validator = Validator::make($request->all(), [
             'title' => 'required|min:10|max:100',
             'text' => 'required|min:50',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        } */
+
+        if (! $request->validated()) {
+            return response()->json($request->errors(), 422);
         }
 
         $post = Post::create($request->all());
@@ -52,15 +58,19 @@ class PostController extends Controller
         return new PostResource(true, 'data stored', $post);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        /* $validator = Validator::make($request->all(), [
             'title' => 'required|min:10|max:100',
             'text' => 'required|min:50',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        } */
+
+        if (! $request->validated()) {
+            return response()->json($request->errors(), 422);
         }
 
         $post = Post::find($id);
