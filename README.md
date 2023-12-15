@@ -25,10 +25,11 @@ The experimental Laravel project to build an API that used to do the operations 
 - [X] Nested Parameter
 - [X] Resources
 - [X] Form Validation
-- [] Form Request
+- [X] Form Request
 - [] API Token
 - [] Authentication (Sanctum)
 - [] Authorization
 - [] Middleware
 - [] Testing
 - [] File Handling (Image)
+- [] Payment Gateway
