@@ -60,22 +60,13 @@ class CommentController extends Controller
             ]);
         }
 
-        /* $request->request->add(['post_id' => intval($postId)]);
-
-        $validator = Validator::make($request->all(), [
-            'message' => 'required',
-            'post_id' => 'required'
-        ]);
+        $validator = Validator::make($request->validationData(), $request->rules());
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        } */
-
-        if ($request->fails()) {
             return response()->json($request->errors(), 422);
         }
 
-        $comment = Comment::create($request->all());
+        $comment = Comment::create($request->validationData());
 
         return new CommentResource(true, 'data stored', $comment);
     }
@@ -99,19 +90,10 @@ class CommentController extends Controller
             ], 404);
         }
 
-        $request->request->add(['post_id' => intval($postId)]);
-
-        /* $validator = Validator::make($request->all(), [
-            'message' => 'required',
-            'post_id' => 'required'
-        ]);
+        $validator = Validator::make($request->validationData(), $request->rules());
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
-        } */
-
-        if ($request->fails()) {
-            return response()->json($request->errors(), 422);
         }
 
         $comment->message = $request->message;

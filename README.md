@@ -26,8 +26,7 @@ The experimental Laravel project to build an API that used to do the operations 
 - [X] Resources
 - [X] Form Validation
 - [X] Form Request
-- [] API Token
-- [] Authentication (Sanctum)
+- [] Authentication (API Token with Sanctum)
 - [] Authorization
 - [] Middleware
 - [] Testing

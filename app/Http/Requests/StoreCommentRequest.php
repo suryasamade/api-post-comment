@@ -3,13 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StoreCommentRequest extends FormRequest
 {
     public function validationData()
     {
         return array_merge($this->request->all(), [
-            'postId' => $this->route('postId')
+            'post_id' => $this->route('post')
         ]);
     }
 
@@ -30,11 +31,9 @@ class StoreCommentRequest extends FormRequest
      */
     public function rules()
     {
-        // $post_id = $this->route('postId');
-
         return [
             'message' => 'required',
-            'post_id' => 'required' . $this->route('postId')
+            'post_id' => 'required'
         ];
     }
 }
