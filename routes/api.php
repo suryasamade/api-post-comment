@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
@@ -20,8 +21,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/posts', PostController::class)->except(['store', 'update', 'destroy']);
-
-Route::apiResource('/posts', PostController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum']);
-
+Route::apiResource('posts', PostController::class);
 Route::apiResource('posts.comments', CommentController::class);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('posts', PostController::class)
+        ->only(['store', 'update', 'destroy']);
+    Route::apiResource('posts.comments', CommentController::class)
+        ->only(['store', 'update', 'destroy']);
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('register', 'register');
+    Route::post('login', 'login');
+
+    Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
+});
